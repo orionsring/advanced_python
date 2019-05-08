@@ -186,7 +186,12 @@ db.define_table('products',
 				
 db.define_table('orders',
                 Field('order_date', type='date', requires=IS_DATE() ),
-                Field('product_id', type='integer'),
+                Field('product_id', 'reference products' ),
                 Field('order_price', type='double'),
-                Field('order_id', type='integer')
+                Field('order_id', 'reference auth_user')
                 )
+
+db.orders.product_id.requires = IS_IN_DB(db,db.products.id,'%(product_name)s')
+db.orders.order_id.requires = IS_IN_DB(db,db.auth_user.id,'%(last_name)s')
+
+
