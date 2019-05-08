@@ -1,0 +1,24 @@
+{{extend 'layout.html'}}
+<script><! --
+    jQuery(document).ready(function(){
+    jQuery("table.sortable tbody tr").mouseover( function() {
+    jQuery(this).addClass("highlight"); }).mouseout( function() {
+    jQuery(this).removeClass("highlight"); });
+    jQuery('table.sortable tbody tr:odd').addClass('odd');
+    jQuery('table.sortable tbody tr:even').addClass('even');
+
+});
+//--></script>
+
+<div class="row">
+  <div class"col-md-12">
+
+{{if request.function=='index':}}
+<h2>{{=T("Available Databases and Tables"}}</h2>
+  {{if not databases:}}{{=T("No databases in this application")}}{{pass}}
+  
+
+  </div>
+</div>
+
+
