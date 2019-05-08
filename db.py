@@ -106,6 +106,13 @@ mail.settings.tls = configuration.get('smtp.tls') or False
 mail.settings.ssl = configuration.get('smtp.ssl') or False
 
 # ----------------------------------------------------------------------
+# configuration auth policy
+# ----------------------------------------------------------------------
+auth.settings.registration_requires_verification = False
+auth.settings.registration_requires_approval = False 
+auth.settings.reset_password_requires_verification = True
+
+# ----------------------------------------------------------------------
 # read more at http://dev.w3.org/html5/markup/meta.name.html
 # ----------------------------------------------------------------------
 response.meta.author = configuration.get('app.author')
@@ -119,6 +126,12 @@ response.show_toolbar = configuration.get('app.toolbar')
 # ----------------------------------------------------------------------
 response.google_analytics_id = configuration.get('google.analytics_id')
 
+# ----------------------------------------------------------------------
+# maybe use the scheduler
+# ----------------------------------------------------------------------
+if configuration.get('scheduler.enabled'):
+    from gluon.scheduler import Scheduler
+    scheduler = Scheduler(db, heartbeat=configuration.get('scheduler.heartbeat'))
 # ----------------------------------------------------------------------
 # Define your tables below (or better in another model file) for example
 # 
@@ -166,3 +179,14 @@ db.define_table('blog',
                 Field('blog_date_posted', type='date', requires=IS_DATE() )
 				)
 
+db.define_table('products',
+                Field('product_name'),
+                Field('currrent_price')
+                )
+				
+db.define_table('orders',
+                Field('order_date', type='date', requires=IS_DATE() ),
+                Field('product_id', type='integer'),
+                Field('order_price', type='double'),
+                Field('order_id', type='integer')
+                )
