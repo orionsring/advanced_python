@@ -1,4 +1,4 @@
-    web based application uses bootsrap 4.
+    web based application using bootsrap 4.
 Recommended to go to web2py.com and install.
 You can then run a server from the web2py.exe 
 after launching the application it comes with 
